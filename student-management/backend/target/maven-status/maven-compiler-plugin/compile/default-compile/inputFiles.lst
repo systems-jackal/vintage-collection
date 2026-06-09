@@ -1,0 +1,10 @@
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/Application.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/config/SecurityConfig.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/controller/AuthController.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/controller/HealthController.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/dto/RegisterRequest.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/exception/EmailAlreadyExistsException.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/model/Role.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/model/User.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/repository/UserRepository.java
+/home/spectrenode/devprojects/student-management/backend/src/main/java/com/spectrenode/service/UserService.java
