@@ -2,9 +2,7 @@ FROM maven:3.9-eclipse-temurin-21
 
 WORKDIR /app
 
-COPY student-management/backend ./backend
-
-WORKDIR /app/backend
+COPY . .
 
 RUN mvn clean package -DskipTests
 
