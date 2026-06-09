@@ -3,93 +3,45 @@
 ![Java](https://img.shields.io/badge/Java-17%2B-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![GitHub last commit](https://img.shields.io/github/last-commit/systems-jackal/vintage-collection)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/systems-jackal/vintage-collection)
-![GitHub repo size](https://img.shields.io/github/repo-size/systems-jackal/vintage-collection)
 
-## 📊 Repository Stats
-<!-- STATS_START -->
-- **Total Commits:** Auto-updating...
-- **Active Projects:** Auto-detecting...
-- **Last Updated:** Auto-updating...
-- **Repository Size:** Auto-updating...
-<!-- STATS_END -->
+## 📌 About This Repository
 
-## 🎯 Mission & Vision
+This is my personal monorepo where I build and experiment with different projects. My goal is to create production-ready applications while mastering backend development with Java Spring Boot and eventually Rust.
 
-Building a collection of production-ready applications while mastering:
-- **Backend Development** with Java Spring Boot
-- **System Programming** with Rust (coming soon)
-- **Clean Architecture** & Best Practices
-- **DevOps** & CI/CD Pipelines
+**What I'm doing here:**
+- Learning Spring Boot by building real projects
+- Practicing REST API development
+- Understanding authentication, databases, and security
+- Keeping all my code organized in one place
 
-## 📁 Active Projects
+## 📁 Current Projects
 
-<!-- PROJECTS_START -->
-Auto-detecting projects...
-<!-- PROJECTS_END -->
+### Student Management System
+**Status:** In Development 🟢
 
-## 🚀 Current Focus: Student Management System
-
-**What I'm Building:**
-A complete student management platform with:
-- JWT authentication & authorization
+A complete student management platform I'm building to learn:
+- User authentication (JWT)
 - Role-based access (Admin, Teacher, Student)
-- CRUD operations for students, courses, grades
-- RESTful API design patterns
-- Email validation & notifications
+- CRUD operations
+- REST API design
 
-**Learning Goals:**
-- Master Spring Security
-- Understand JPA/Hibernate relationships
-- Implement DTO patterns
-- Write unit & integration tests
+**Stack:** Java 17, Spring Boot, Spring Security, Spring Data JPA, Maven
 
-## 📈 Development Timeline
+## 🎯 Why I Built This Structure
 
-<!-- TIMELINE_START -->
-Auto-generating timeline...
-<!-- TIMELINE_END -->
+I wanted one repository where I can:
+- Track all my projects in one place
+- Practice Git workflows
+- Keep a clean development environment
+- Look back at my progress over time
 
-## 🔧 Tech Stack Evolution
+## 🛠️ How to Run Any Project
 
-### Current:
-- Java 17 / Spring Boot 3.x
-- Maven
-- Spring Data JPA
-- Spring Security
+```bash
+# Clone the repository
+git clone https://github.com/systems-jackal/vintage-collection.git
+cd vintage-hub
 
-### Learning Queue:
-- [ ] Rust for performance-critical components
-- [ ] Docker & Kubernetes
-- [ ] Redis for caching
-- [ ] Message queues (RabbitMQ/Kafka)
-
-## 📝 Recent Activity
-
-<!-- ACTIVITY_START -->
-Auto-updating activity log...
-<!-- ACTIVITY_END -->
-
-## 🎓 What I'm Learning This Week
-
-- Spring Boot best practices
-- REST API design patterns
-- Database optimization
-- Git workflow mastery
-
-## 📅 Daily Commit Goal
-
-<!-- COMMIT_GOAL_START -->
-Tracking daily progress...
-<!-- COMMIT_GOAL_END -->
-
-## 🔗 Quick Links
-
-- **Repository:** [vintage-collection](https://github.com/systems-jackal/vintage-collection)
-- **Issues:** Track your TODOs here
-- **Projects:** GitHub Projects for planning
-
----
-
-*This README auto-updates with repository activity! Last auto-update: Dynamic*
+# Run the Student Management backend
+cd student-management/backend
+./mvnw spring-boot:run
