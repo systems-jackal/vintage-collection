@@ -1,22 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnHub – Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="login-container">
+<div class="app-layout">
 
-    <h1>Dashboard</h1>
+  <!-- Sidebar -->
+  <aside class="sidebar">
 
-    <div id="dashboardData">
-        Loading...
+    <div class="sidebar-brand">
+      <div class="brand">
+        <div class="brand-icon">&#128218;</div>
+        <span class="brand-name">LearnHub</span>
+      </div>
+      <div class="brand-sub">Student portal</div>
     </div>
 
-    <button onclick="logout()">
-        Logout
-    </button>
+    <nav class="nav-section">
+      <div class="nav-section-label">Main</div>
+      <a href="dashboard.html" class="nav-item active">&#127968; Dashboard</a>
+      <a href="#" class="nav-item">&#128218; My courses <span class="nav-badge">4</span></a>
+      <a href="#" class="nav-item">&#128197; Schedule</a>
+      <a href="#" class="nav-item">&#127941; Certificates</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-section-label">Community</div>
+      <a href="#" class="nav-item">&#128172; Discussions <span class="nav-badge">3</span></a>
+      <a href="#" class="nav-item">&#128101; Study groups</a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-section-label">Account</div>
+      <a href="#" class="nav-item">&#9881;&#65039; Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-row">
+        <div class="avatar" id="userAvatar">??</div>
+        <div>
+          <div class="user-name" id="userName">Loading…</div>
+          <div class="user-role">Student</div>
+        </div>
+        <button class="logout-btn" onclick="logout()" title="Logout">&#10132;</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <div class="topbar">
+      <div>
+        <div class="page-title" id="greeting">Dashboard</div>
+        <div class="page-sub">Welcome back</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" title="Notifications">
+          &#128276;
+          <div class="notif-dot"></div>
+        </button>
+        <button class="icon-btn" title="Search">&#128269;</button>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Enrolled</div>
+        <div class="stat-value">4</div>
+        <div class="stat-delta">+1 this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Hours learned</div>
+        <div class="stat-value">38</div>
+        <div class="stat-delta">+6 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completed</div>
+        <div class="stat-value">12</div>
+        <div class="stat-delta" style="color:var(--text-4)">lessons total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Streak</div>
+        <div class="stat-value">7</div>
+        <div class="stat-delta">days in a row</div>
+      </div>
+    </div>
+
+    <!-- Dashboard data from backend (populated by dashboard.js) -->
+    <div id="dashboardData">
+
+      <div class="content-area">
+
+        <!-- Courses -->
+        <div>
+          <div class="section-heading">
+            Continue learning
+            <span class="see-all">See all</span>
+          </div>
+          <div class="course-list">
+
+            <div class="course-card">
+              <div class="course-icon ci-purple">&#128187;</div>
+              <div class="course-info">
+                <div class="course-name">Secure backend development</div>
+                <div class="course-meta">Module 4 of 8 &middot; 3h 20m left</div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill pb-purple" style="width:52%"></div>
+                </div>
+              </div>
+              <div class="course-right">
+                <span class="progress-pct">52%</span>
+                <button class="resume-btn">Resume</button>
+              </div>
+            </div>
+
+            <div class="course-card">
+              <div class="course-icon ci-teal">&#128274;</div>
+              <div class="course-info">
+                <div class="course-name">DevSecOps fundamentals</div>
+                <div class="course-meta">Module 6 of 10 &middot; 5h 10m left</div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill pb-teal" style="width:61%"></div>
+                </div>
+              </div>
+              <div class="course-right">
+                <span class="progress-pct">61%</span>
+                <button class="resume-btn">Resume</button>
+              </div>
+            </div>
+
+            <div class="course-card">
+              <div class="course-icon ci-amber">&#9729;&#65039;</div>
+              <div class="course-info">
+                <div class="course-name">Cloud infrastructure &amp; CI/CD</div>
+                <div class="course-meta">Module 2 of 7 &middot; 8h 45m left</div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill pb-amber" style="width:22%"></div>
+                </div>
+              </div>
+              <div class="course-right">
+                <span class="progress-pct">22%</span>
+                <button class="resume-btn">Resume</button>
+              </div>
+            </div>
+
+            <div class="course-card">
+              <div class="course-icon ci-blue">&#128190;</div>
+              <div class="course-info">
+                <div class="course-name">Database design &amp; optimization</div>
+                <div class="course-meta">Module 7 of 8 &middot; 1h 05m left</div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill pb-blue" style="width:88%"></div>
+                </div>
+              </div>
+              <div class="course-right">
+                <span class="progress-pct">88%</span>
+                <button class="resume-btn">Resume</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right panels -->
+        <div class="right-panels">
+
+          <div class="panel">
+            <div class="panel-heading">Upcoming</div>
+            <div class="upcoming-list">
+              <div class="upcoming-item">
+                <div class="up-date">MON</div>
+                <div>
+                  <div class="up-title">SQL quiz</div>
+                  <div class="up-sub">Database design</div>
+                </div>
+              </div>
+              <div class="upcoming-item">
+                <div class="up-date">WED</div>
+                <div>
+                  <div class="up-title">Live session</div>
+                  <div class="up-sub">DevSecOps · 14:00</div>
+                </div>
+              </div>
+              <div class="upcoming-item">
+                <div class="up-date">FRI</div>
+                <div>
+                  <div class="up-title">Assignment due</div>
+                  <div class="up-sub">Secure backend</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">Achievements</div>
+            <div class="achievement-list">
+              <div class="ach-item">&#127941; 7-day streak</div>
+              <div class="ach-item">&#11088; Top 10% learner</div>
+              <div class="ach-item">&#127942; Quiz master</div>
+              <div class="ach-item">&#127481; Module complete</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div><!-- #dashboardData -->
+
+  </main>
 
 </div>
 
