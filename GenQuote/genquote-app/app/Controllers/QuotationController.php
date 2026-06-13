@@ -20,7 +20,6 @@ class QuotationController {
     }
 
     public function store() {
-        // Convert customer_id to integer or null
         $customer_id = !empty($_POST['customer_id']) ? (int)$_POST['customer_id'] : null;
         $date = $_POST['date'];
         $quotation_number = $_POST['quotation_number'];
@@ -101,41 +100,45 @@ class QuotationController {
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Quotation <?= htmlspecialchars($quotation['quotation_number']) ?></title>
+            <title>Quotation <?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body {
                     font-family: 'Helvetica', 'Arial', sans-serif;
-                    font-size: 11pt;
+                    font-size: 10.5pt;
                     line-height: 1.4;
-                    color: #1a1a1a;
+                    color: #1e2a3a;
                     background: white;
-                    padding: 0.6in 0.5in;
+                    padding: 0.5in 0.6in;
                     margin: 0;
                 }
                 .header {
                     text-align: center;
                     margin-bottom: 30px;
-                    border-bottom: 1px solid #e0e0e0;
-                    padding-bottom: 15px;
+                    border-bottom: 1px solid #e2e8f0;
+                    padding-bottom: 20px;
                 }
                 .company-name {
-                    font-size: 24pt;
-                    font-weight: 600;
+                    font-size: 22pt;
+                    font-weight: 700;
                     letter-spacing: 1px;
-                    margin-bottom: 8px;
-                    color: #2c3e50;
+                    color: #0f3b5c;
+                    margin-bottom: 6px;
                 }
                 .company-details {
                     font-size: 9pt;
-                    color: #555;
+                    color: #4a5568;
+                }
+                .company-details span {
+                    margin: 0 4px;
                 }
                 .quotation-title {
                     font-size: 18pt;
                     font-weight: 600;
                     text-align: center;
-                    margin: 25px 0 20px;
-                    color: #2c3e50;
+                    margin: 15px 0 25px;
+                    color: #0f3b5c;
+                    letter-spacing: 2px;
                 }
                 .info-table {
                     width: 100%;
@@ -143,13 +146,21 @@ class QuotationController {
                     border-collapse: collapse;
                 }
                 .info-table td {
-                    padding: 6px 5px;
+                    padding: 5px 8px;
                     vertical-align: top;
                     border: none;
                 }
                 .info-table .label {
                     font-weight: 600;
-                    width: 110px;
+                    width: 100px;
+                    color: #2c5282;
+                }
+                .info-table .ref-number {
+                    font-family: monospace;
+                    background: #f7fafc;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    font-size: 9.5pt;
                 }
                 .items-table {
                     width: 100%;
@@ -158,18 +169,28 @@ class QuotationController {
                 }
                 .items-table th {
                     text-align: left;
-                    padding: 10px 5px 8px 5px;
+                    padding: 12px 5px 8px 5px;
                     font-weight: 600;
-                    border-bottom: 1px solid #d0d0d0;
+                    color: #2c5282;
+                    border-bottom: 1px solid #cbd5e0;
+                    font-size: 10pt;
                 }
                 .items-table td {
                     padding: 10px 5px;
                     border: none;
+                    vertical-align: top;
+                }
+                .group-header td {
+                    background-color: #f7fafc;
+                    font-weight: 600;
+                    padding: 8px 5px 4px 5px;
+                    color: #1e4a76;
+                    font-size: 10.5pt;
                 }
                 .totals {
-                    width: 300px;
+                    width: 280px;
                     margin-left: auto;
-                    margin-top: 20px;
+                    margin-top: 25px;
                     margin-bottom: 35px;
                     border-collapse: collapse;
                 }
@@ -179,115 +200,185 @@ class QuotationController {
                     text-align: right;
                 }
                 .totals .label {
+                    font-weight: normal;
                     padding-right: 20px;
                 }
                 .totals .grand-total td {
-                    font-weight: bold;
-                    font-size: 13pt;
+                    font-weight: 700;
+                    font-size: 12pt;
                     padding-top: 10px;
-                    border-top: 1px solid #aaa;
+                    border-top: 1px solid #a0aec0;
                 }
                 .terms {
-                    margin: 30px 0 20px;
+                    margin: 25px 0 20px;
                     font-size: 9pt;
-                    color: #444;
-                    border-top: 1px solid #e0e0e0;
-                    padding-top: 20px;
+                    color: #2d3748;
+                    border-top: 1px solid #e2e8f0;
+                    padding-top: 18px;
+                }
+                .terms p {
+                    margin: 4px 0;
                 }
                 .signature {
                     margin-top: 35px;
                     display: flex;
                     justify-content: space-between;
+                    align-items: flex-end;
                 }
                 .signature-line {
-                    border-top: 1px solid #888;
-                    width: 80%;
-                    margin-top: 40px;
-                    margin-bottom: 8px;
+                    border-top: 1px solid #4a5568;
+                    width: 220px;
+                    margin-top: 35px;
+                    margin-bottom: 6px;
                 }
                 .signature-name {
                     font-weight: 600;
+                    font-size: 9.5pt;
+                    color: #1e4a76;
+                }
+                .customer-note {
+                    font-size: 8pt;
+                    color: #718096;
                     margin-top: 5px;
                 }
-                .small-note {
+                .footer-note {
                     font-size: 8pt;
-                    color: #777;
-                    margin-top: 20px;
+                    color: #718096;
+                    margin-top: 30px;
                     text-align: center;
+                    border-top: 1px solid #e2e8f0;
+                    padding-top: 15px;
                 }
             </style>
         </head>
         <body>
             <div class="header">
-                <div class="company-name"><?= htmlspecialchars($settings['company_name']) ?></div>
+                <div class="company-name"><?= htmlspecialchars($settings['company_name'] ?? 'Your Company') ?></div>
                 <div class="company-details">
-                    <?= htmlspecialchars($settings['company_phone']) ?>
-                    <?= $settings['company_email'] ? '| ' . htmlspecialchars($settings['company_email']) : '' ?><br>
-                    <?= htmlspecialchars($settings['company_address']) ?>
+                    <?= htmlspecialchars($settings['company_phone'] ?? '') ?>
+                    <?php if (!empty($settings['company_email'])): ?>
+                        <span>|</span> <?= htmlspecialchars($settings['company_email']) ?>
+                    <?php endif; ?>
+                    <?php if (!empty($settings['company_address'])): ?>
+                        <br><?= nl2br(htmlspecialchars($settings['company_address'])) ?>
+                    <?php endif; ?>
                 </div>
             </div>
+
             <div class="quotation-title">QUOTATION</div>
+
             <table class="info-table">
-                <tr><td class="label">Customer:</td><td><strong><?= htmlspecialchars($quotation['customer_name'] ?? 'Walk-in Customer') ?></strong></td>
-                    <td class="label">Date:</td><td><?= date('d/m/Y', strtotime($quotation['date'])) ?></td>
+                <tr>
+                    <td class="label">Customer:</td>
+                    <td><strong><?= htmlspecialchars($quotation['customer_name'] ?? 'Walk-in Customer') ?></strong></td>
+                    <td class="label">Date:</td>
+                    <td><?= date('d/m/Y', strtotime($quotation['date'] ?? 'now')) ?></td>
                 </tr>
-                <?php if ($quotation['attention']): ?>
-                <tr><td class="label">Attention:</td><td><?= htmlspecialchars($quotation['attention']) ?></td>
-                    <td class="label">Ref:</td><td><?= $quotation['quotation_number'] ?></td>
+                <?php if (!empty($quotation['attention'])): ?>
+                <tr>
+                    <td class="label">Attention:</td>
+                    <td><?= htmlspecialchars($quotation['attention']) ?></td>
+                    <td class="label">Ref:</td>
+                    <td><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
+                </tr>
+                <?php else: ?>
+                <tr>
+                    <td class="label"></td><td></td>
+                    <td class="label">Ref:</td>
+                    <td><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($quotation['contact_person']): ?>
-                <tr><td class="label">Contact:</td><td><?= htmlspecialchars($quotation['contact_person']) ?></td>
-                    <td class="label">Our Contact:</td><td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name']) ?> <?= $quotation['our_contact_phone'] ? '(' . htmlspecialchars($quotation['our_contact_phone']) . ')' : '' ?></td>
+                <?php if (!empty($quotation['contact_person'])): ?>
+                <tr>
+                    <td class="label">Contact:</td>
+                    <td><?= htmlspecialchars($quotation['contact_person']) ?></td>
+                    <td class="label">Our Contact:</td>
+                    <td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
+                        <?= !empty($quotation['our_contact_phone']) ? ' ('.htmlspecialchars($quotation['our_contact_phone']).')' : '' ?>
+                    </td>
+                </tr>
+                <?php else: ?>
+                <tr>
+                    <td class="label"></td><td></td>
+                    <td class="label">Our Contact:</td>
+                    <td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
+                        <?= !empty($quotation['our_contact_phone']) ? ' ('.htmlspecialchars($quotation['our_contact_phone']).')' : '' ?>
+                    </td>
                 </tr>
                 <?php endif; ?>
-                <tr><td class="label">Address:</td><td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td>
+                <tr>
+                    <td class="label">Address:</td>
+                    <td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td>
                 </tr>
-                <?php if ($quotation['re_description']): ?>
-                <tr><td class="label">RE:</td><td colspan="3"><em><?= htmlspecialchars($quotation['re_description']) ?></em></td>
+                <?php if (!empty($quotation['re_description'])): ?>
+                <tr>
+                    <td class="label">RE:</td>
+                    <td colspan="3"><em><?= htmlspecialchars($quotation['re_description']) ?></em></td>
                 </tr>
                 <?php endif; ?>
             </table>
+
             <table class="items-table">
                 <thead>
-                    <tr><th style="width:35%">Description</th><th style="width:12%">Qty</th><th style="width:12%">Unit</th><th style="width:20%">Unit Price (KES)</th><th style="width:21%">Total (KES)</th></tr>
+                    <tr>
+                        <th style="width:22%">Material Name</th>
+                        <th style="width:38%">Material Description</th>
+                        <th style="width:10%">Qty</th>
+                        <th style="width:10%">Unit</th>
+                        <th style="width:20%">Unit Price (KES)</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php 
-                $currentGen = null;
+                $currentGroup = null;
                 foreach ($items as $item):
-                    if (!empty($item['generator_group']) && $item['generator_group'] !== $currentGen):
-                        $currentGen = $item['generator_group'];
+                    $materialName = !empty($item['generator_group']) ? $item['generator_group'] : '';
+                    if (!empty($materialName) && $materialName !== $currentGroup):
+                        $currentGroup = $materialName;
                 ?>
-                    <tr style="background:#fafafa;"><td colspan="5" style="padding: 8px 5px 4px; font-weight:600;"><?= htmlspecialchars($item['generator_group']) ?></td></tr>
+                    <tr class="group-header"><td colspan="5"><strong><?= htmlspecialchars($materialName) ?></strong></td></tr>
                 <?php endif; ?>
                 <tr>
-                    <td><?= htmlspecialchars($item['description']) ?></td>
-                    <td><?= htmlspecialchars($item['quantity']) ?></td>
-                    <td><?= htmlspecialchars($item['unit']) ?></td>
-                    <td><?= number_format($item['unit_price'], 2) ?></td>
-                    <td><?= number_format($item['total'], 2) ?></td>
+                    <td><?= htmlspecialchars($materialName) ?></td>
+                    <td><?= nl2br(htmlspecialchars($item['description'] ?? '')) ?></td>
+                    <td><?= number_format((float)($item['quantity'] ?? 0), 2) ?></td>
+                    <td><?= htmlspecialchars($item['unit'] ?? '') ?></td>
+                    <td><?= number_format((float)($item['unit_price'] ?? 0), 2) ?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
+
             <table class="totals">
-                <tr><td class="label">Subtotal</td><td>KES <?= number_format($quotation['subtotal'], 2) ?></td></tr>
-                <?php if ($quotation['vat_included']): ?>
-                <tr><td class="label">VAT 16%</td><td>KES <?= number_format($quotation['vat_amount'], 2) ?></td></tr>
+                <tr><td class="label">Subtotal</td><td>KES <?= number_format((float)($quotation['subtotal'] ?? 0), 2) ?></td></tr>
+                <?php if (!empty($quotation['vat_included']) && (float)($quotation['vat_amount'] ?? 0) > 0): ?>
+                <tr><td class="label">VAT 16%</td><td>KES <?= number_format((float)($quotation['vat_amount'] ?? 0), 2) ?></td></tr>
                 <?php endif; ?>
-                <tr class="grand-total"><td class="label"><strong>TOTAL</strong></td><td><strong>KES <?= number_format($quotation['total'], 2) ?></strong></td></tr>
+                <tr class="grand-total"><td class="label"><strong>TOTAL</strong></td><td><strong>KES <?= number_format((float)($quotation['total'] ?? 0), 2) ?></strong></td></tr>
             </table>
+
             <div class="terms">
-                <p><strong>Validity:</strong> <?= nl2br(htmlspecialchars($quotation['validity'])) ?></p>
-                <p><strong>Payment:</strong> <?= nl2br(htmlspecialchars($quotation['payment_terms'])) ?></p>
-                <p><strong>Warranty:</strong> <?= nl2br(htmlspecialchars($quotation['warranty'])) ?></p>
+                <p><strong>Validity:</strong> <?= nl2br(htmlspecialchars($quotation['validity'] ?? '1 month unless cancelled or extended in writing')) ?></p>
+                <p><strong>Payment:</strong> <?= nl2br(htmlspecialchars($quotation['payment_terms'] ?? 'Upfront payment for routine service and repair')) ?></p>
+                <p><strong>Warranty:</strong> <?= nl2br(htmlspecialchars($quotation['warranty'] ?? '6 months on spares')) ?></p>
             </div>
+
             <div class="signature">
-                <div><div class="signature-line"></div><div class="signature-name"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name']) ?></div><div><?= htmlspecialchars($settings['manager_title']) ?></div></div>
-                <div><div class="signature-line"></div><div class="signature-name">Customer confirmation</div><div class="small-note">(Signature & Date)</div></div>
+                <div>
+                    <div class="signature-line"></div>
+                    <div class="signature-name"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></div>
+                    <div><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
+                </div>
+                <div>
+                    <div class="signature-line"></div>
+                    <div class="signature-name">Customer confirmation</div>
+                    <div class="customer-note">(Signature & Date)</div>
+                </div>
             </div>
-            <div class="small-note"><?= nl2br(htmlspecialchars($settings['footer_text'])) ?></div>
+
+            <div class="footer-note">
+                <?= nl2br(htmlspecialchars($settings['footer_text'] ?? 'Thank you for your business')) ?>
+            </div>
         </body>
         </html>
         <?php
