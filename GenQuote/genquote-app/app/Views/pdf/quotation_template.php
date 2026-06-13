@@ -7,152 +7,164 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
-            font-size: 10.5pt;
-            line-height: 1.4;
+            font-size: 9pt;  /* Smaller base font */
+            line-height: 1.3;
             color: #1e2a3a;
             background: white;
-            padding: 0.5in 0.6in;
+            padding: 0.3in 0.4in;  /* Reduced padding */
             margin: 0;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
         }
         .company-name {
-            font-size: 22pt;
+            font-size: 18pt;  /* Smaller title */
             font-weight: 700;
             letter-spacing: 1px;
             color: #0f3b5c;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .company-details {
-            font-size: 9pt;
+            font-size: 8pt;
             color: #4a5568;
         }
         .quotation-title {
-            font-size: 18pt;
+            font-size: 14pt;
             font-weight: 600;
             text-align: center;
-            margin: 10px 0 25px;
+            margin: 8px 0 12px;
             color: #0f3b5c;
-            letter-spacing: 2px;
         }
         .info-table {
             width: 100%;
-            margin-bottom: 25px;
+            margin-bottom: 12px;
             border-collapse: collapse;
         }
         .info-table td {
-            padding: 5px 8px;
+            padding: 3px 6px;
             vertical-align: top;
             border: none;
         }
         .info-table .label {
             font-weight: 600;
-            width: 100px;
+            width: 85px;
             color: #2c5282;
         }
         .info-table .ref-number {
             font-family: monospace;
             background: #f7fafc;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 9.5pt;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 8.5pt;
         }
         .re-line {
             text-align: center;
             text-decoration: underline;
-            margin: 10px 0 15px 0;
+            margin: 5px 0 10px;
             font-weight: 500;
             color: #2c5282;
+            font-size: 9pt;
         }
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0 20px;
+            margin: 10px 0 12px;
         }
         .items-table th {
             text-align: left;
-            padding: 12px 5px 8px 5px;
+            padding: 6px 4px 4px 4px;
             font-weight: 600;
             color: #2c5282;
             border-bottom: 1px solid #cbd5e0;
-            font-size: 10pt;
+            font-size: 8.5pt;
         }
         .items-table td {
-            padding: 10px 5px;
+            padding: 6px 4px;
             border: none;
             vertical-align: top;
+            font-size: 8.5pt;
         }
         .group-header td {
             background-color: #f7fafc;
             font-weight: 600;
-            padding: 8px 5px 4px 5px;
+            padding: 4px 4px 2px 4px;
             color: #1e4a76;
-            font-size: 10.5pt;
+            font-size: 9pt;
         }
         .totals {
-            width: 280px;
+            width: 250px;
             margin-left: auto;
-            margin-top: 25px;
-            margin-bottom: 35px;
+            margin-top: 12px;
+            margin-bottom: 20px;
             border-collapse: collapse;
         }
         .totals td {
-            padding: 6px 0;
+            padding: 3px 0;
             border: none;
             text-align: right;
+            font-size: 9pt;
         }
         .totals .label {
             font-weight: normal;
-            padding-right: 20px;
+            padding-right: 15px;
         }
         .totals .grand-total td {
             font-weight: 700;
-            font-size: 12pt;
-            padding-top: 10px;
+            font-size: 10pt;
+            padding-top: 6px;
             border-top: 1px solid #a0aec0;
         }
         .terms {
-            margin: 25px 0 20px;
-            font-size: 9pt;
+            margin: 15px 0 12px;
+            font-size: 7.5pt;
             color: #2d3748;
             border-top: 1px solid #e2e8f0;
-            padding-top: 18px;
+            padding-top: 10px;
         }
         .terms p {
-            margin: 4px 0;
+            margin: 2px 0;
         }
-        .signature {
-            margin-top: 35px;
+        /* SIGNATURE SECTION: FLEX ROW, SIDE BY SIDE */
+        .signature-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            margin-top: 20px;
+            gap: 30px;
+        }
+        .signature-box {
+            flex: 1;
         }
         .signature-line {
             border-top: 1px solid #4a5568;
-            width: 220px;
-            margin-top: 35px;
-            margin-bottom: 6px;
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 4px;
         }
         .signature-name {
             font-weight: 600;
-            font-size: 9.5pt;
+            font-size: 8.5pt;
             color: #1e4a76;
         }
+        .signature-title {
+            font-size: 7.5pt;
+            color: #4a5568;
+        }
         .customer-note {
-            font-size: 8pt;
+            font-size: 7pt;
             color: #718096;
-            margin-top: 5px;
+            margin-top: 3px;
         }
         .footer-note {
-            font-size: 8pt;
+            font-size: 7pt;
             color: #718096;
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
             border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
+            padding-top: 10px;
         }
     </style>
 </head>
@@ -190,8 +202,7 @@
         </tr>
         <?php else: ?>
         <tr>
-            <td class="label"></td>
-            <td></td>
+            <td class="label"></td><td></td>
             <td class="label">Ref:</td>
             <td><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
@@ -207,8 +218,7 @@
         </tr>
         <?php else: ?>
         <tr>
-            <td class="label"></td>
-            <td></td>
+            <td class="label"></td><td></td>
             <td class="label">Our Contact:</td>
             <td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
                 <?= !empty($quotation['our_contact_phone']) ? ' ('.htmlspecialchars($quotation['our_contact_phone']).')' : '' ?>
@@ -221,7 +231,7 @@
         </tr>
     </table>
 
-    <!-- RE LINE (CENTERED + UNDERLINED) -->
+    <!-- RE LINE -->
     <?php if (!empty($quotation['re_description'])): ?>
     <div class="re-line">
         <strong>RE: <?= htmlspecialchars($quotation['re_description']) ?></strong>
@@ -233,7 +243,7 @@
         <thead>
             <tr>
                 <th style="width:22%">Material Name</th>
-                <th style="width:38%">Material Description</th>
+                <th style="width:38%">Description</th>
                 <th style="width:10%">Qty</th>
                 <th style="width:10%">Unit</th>
                 <th style="width:20%">Unit Price (KES)</th>
@@ -263,22 +273,10 @@
                 <td><?= number_format((float)($item['unit_price'] ?? 0), 2) ?></td>
             </tr>
         <?php endforeach; ?>
-        
-        <!-- LABOUR CHARGE ROW (if present) -->
-        <?php if (!empty($quotation['labour_charge']) && $quotation['labour_charge'] > 0): ?>
-        <tr class="group-header"><td colspan="5"><strong>Labour & Sundries</strong></td></tr>
-        <tr>
-            <td>Labour Charge</td>
-            <td>Installation & commissioning</td>
-            <td>1.00</td>
-            <td>lumpsum</td>
-            <td><?= number_format((float)($quotation['labour_charge'] ?? 0), 2) ?></td>
-        </tr>
-        <?php endif; ?>
         </tbody>
     </table>
 
-    <!-- TOTALS SECTION -->
+    <!-- TOTALS -->
     <table class="totals">
         <tr><td class="label">Subtotal</td><td>KES <?= number_format((float)($quotation['subtotal'] ?? 0), 2) ?></td></tr>
         <?php if (!empty($quotation['vat_included']) && (float)($quotation['vat_amount'] ?? 0) > 0): ?>
@@ -287,21 +285,21 @@
         <tr class="grand-total"><td class="label"><strong>TOTAL</strong></td><td><strong>KES <?= number_format((float)($quotation['total'] ?? 0), 2) ?></strong></td></tr>
     </table>
 
-    <!-- TERMS AND CONDITIONS -->
+    <!-- TERMS -->
     <div class="terms">
         <p><strong>Validity:</strong> <?= nl2br(htmlspecialchars($quotation['validity'] ?? '1 month unless cancelled or extended in writing')) ?></p>
         <p><strong>Payment:</strong> <?= nl2br(htmlspecialchars($quotation['payment_terms'] ?? 'Upfront payment for routine service and repair')) ?></p>
         <p><strong>Warranty:</strong> <?= nl2br(htmlspecialchars($quotation['warranty'] ?? '6 months on spares')) ?></p>
     </div>
 
-    <!-- SIGNATURES -->
-    <div class="signature">
-        <div>
+    <!-- SIGNATURE SECTION: MANAGER + CUSTOMER CONFIRMATION SIDE BY SIDE -->
+    <div class="signature-row">
+        <div class="signature-box">
             <div class="signature-line"></div>
             <div class="signature-name"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></div>
-            <div><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
+            <div class="signature-title"><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
         </div>
-        <div>
+        <div class="signature-box">
             <div class="signature-line"></div>
             <div class="signature-name">Customer confirmation</div>
             <div class="customer-note">(Signature & Date)</div>
@@ -309,7 +307,7 @@
     </div>
 
     <div class="footer-note">
-        <?= nl2br(htmlspecialchars($settings['footer_text'] ?? 'Thank you for your business')) ?>
+        <?= nl2br(htmlspecialchars($settings['footer_text'] ?? 'Thank you for choosing Londiani Electricals')) ?>
     </div>
 </body>
 </html>
