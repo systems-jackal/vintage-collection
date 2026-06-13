@@ -1,4 +1,4 @@
-<?php include '../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/header.php'; ?>
 <div class="container">
     <h2>Customers</h2>
     <a href="/customers/create" class="btn">+ Add Customer</a>
@@ -21,4 +21,4 @@
         </tbody>
     </table>
 </div>
-<?php include '../partials/footer.php'; ?>
+<?php include __DIR__ . '/../partials/footer.php'; ?>

@@ -1,4 +1,4 @@
-<?php include '../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/header.php'; ?>
 <div class="container">
     <h2>Create Quotation</h2>
     <form method="POST" action="/quotations/store" id="quotationForm">
@@ -67,6 +67,5 @@
         <a href="/dashboard" class="cancel">Cancel</a>
     </form>
 </div>
-
 <script src="/assets/js/quotation.js"></script>
-<?php include '../partials/footer.php'; ?>
+<?php include __DIR__ . '/../partials/footer.php'; ?>

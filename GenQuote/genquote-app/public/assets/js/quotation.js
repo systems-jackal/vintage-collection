@@ -21,7 +21,7 @@ function addRow() {
     const newRow = document.createElement('tr');
     newRow.className = 'item-row';
     newRow.innerHTML = `
-        <td><input type="text" name="generator_group[]" placeholder="Perkins 150KVA"></td>
+        <tr><input type="text" name="generator_group[]" placeholder="Perkins 150KVA"></td>
         <td><input type="text" name="item_description[]" placeholder="Fuel Filter" required></td>
         <td><input type="number" name="item_quantity[]" class="qty" value="1" step="any" style="width:80px" required></td>
         <td><input type="text" name="item_unit[]" placeholder="pcs" style="width:60px"></td>

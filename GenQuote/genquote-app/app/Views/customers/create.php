@@ -1,4 +1,4 @@
-<?php include '../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/header.php'; ?>
 <div class="container">
     <h2>Add Customer</h2>
     <form method="POST" action="/customers/store">
@@ -30,4 +30,4 @@
         <a href="/customers" class="cancel">Cancel</a>
     </form>
 </div>
-<?php include '../partials/footer.php'; ?>
+<?php include __DIR__ . '/../partials/footer.php'; ?>
