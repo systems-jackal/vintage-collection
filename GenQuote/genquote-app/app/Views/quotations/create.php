@@ -32,14 +32,22 @@
         <h3>Items</h3>
         <table id="itemsTable" class="dynamic-table borderless">
             <thead>
-                <tr><th>Generator</th><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price (KES)</th><th>Total (KES)</th><th></th></tr>
+                <tr>
+                    <th style="width:25%">Material Name</th>
+                    <th style="width:40%">Material Description</th>
+                    <th style="width:10%">Qty</th>
+                    <th style="width:10%">Unit</th>
+                    <th style="width:15%">Unit Price (KES)</th>
+                    <th style="width:15%">Total (KES)</th>
+                    <th style="width:5%"></th>
+                </tr>
             </thead>
             <tbody>
                 <tr class="item-row">
-                    <td><input type="text" name="generator_group[]" placeholder="Perkins 150KVA"></td>
-                    <td><input type="text" name="item_description[]" placeholder="Fuel Filter" required></td>
+                    <td><input type="text" name="generator_group[]" placeholder="e.g., Solar Panel" style="width:100%"></td>
+                    <td><textarea name="item_description[]" placeholder="Detailed description (model, specs, etc.)" rows="2" style="width:100%"></textarea></td>
                     <td><input type="number" name="item_quantity[]" class="qty" value="1" step="any" style="width:80px" required></td>
-                    <td><input type="text" name="item_unit[]" placeholder="pcs" style="width:60px"></td>
+                    <td><input type="text" name="item_unit[]" placeholder="pcs" style="width:80px"></td>
                     <td><input type="number" name="item_unit_price[]" class="price" step="0.01" style="width:100px" required></td>
                     <td><input type="text" class="row-total" readonly style="width:100px"></td>
                     <td><button type="button" class="remove-row">✖</button></td>
