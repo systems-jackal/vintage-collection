@@ -5,12 +5,34 @@ class AuthController {
         global $pdo;
         $this->pdo = $pdo;
     }
+
     public function loginForm() {
         include __DIR__ . '/../Views/auth/login.php';
     }
+
+    public function registerForm() {
+        include __DIR__ . '/../Views/auth/register.php';
+    }
+
+    public function register() {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $stmt = $this->pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        try {
+            $stmt->execute([$name, $email, $password]);
+            $_SESSION['user_id'] = $this->pdo->lastInsertId();
+            $_SESSION['user_name'] = $name;
+            header('Location: /dashboard');
+        } catch (PDOException $e) {
+            header('Location: /register?error=Email already exists');
+        }
+    }
+
     public function login() {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $email = $_POST['email'];
+        $password = $_POST['password'];
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -22,6 +44,7 @@ class AuthController {
             header('Location: /login?error=Invalid credentials');
         }
     }
+
     public function logout() {
         session_destroy();
         header('Location: /login');

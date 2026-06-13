@@ -10,7 +10,9 @@ if (strpos($request, $basePath) === 0) {
 }
 if (empty($request)) $request = '/';
 
-$publicRoutes = ['/login', '/do-login'];
+// Public routes (no login required)
+$publicRoutes = ['/login', '/do-login', '/register', '/do-register'];
+
 if (!isset($_SESSION['user_id']) && !in_array($request, $publicRoutes)) {
     header('Location: /login');
     exit;
@@ -29,6 +31,14 @@ switch ($request) {
     case '/do-login':
         require_once __DIR__ . '/../app/Controllers/AuthController.php';
         (new AuthController())->login();
+        break;
+    case '/register':
+        require_once __DIR__ . '/../app/Controllers/AuthController.php';
+        (new AuthController())->registerForm();
+        break;
+    case '/do-register':
+        require_once __DIR__ . '/../app/Controllers/AuthController.php';
+        (new AuthController())->register();
         break;
     case '/logout':
         require_once __DIR__ . '/../app/Controllers/AuthController.php';
