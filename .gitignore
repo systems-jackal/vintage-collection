@@ -82,3 +82,10 @@ spring-boot-devtools.pid
 *.h2.db
 *.mv.db
 *.trace.db
+
+#GenQuote
+GenQuote/genquote-app/vendor/
+GenQuote/genquote-app/composer.lock
+GenQuote/genquote-app/.env
+GenQuote/genquote-app/.env.*
+GenQuote/genquote-app/storage/
