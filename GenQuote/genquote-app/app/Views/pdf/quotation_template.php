@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,35 +8,34 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
-            font-size: 9pt;  /* Smaller base font */
+            font-size: 9.5pt;
             line-height: 1.3;
-            color: #1e2a3a;
+            color: #1a1a1a;
             background: white;
-            padding: 0.3in 0.4in;  /* Reduced padding */
+            padding: 0.3in 0.4in;
             margin: 0;
         }
         .header {
             text-align: center;
             margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
         }
         .company-name {
-            font-size: 18pt;  /* Smaller title */
+            font-size: 18pt;
             font-weight: 700;
-            letter-spacing: 1px;
             color: #0f3b5c;
             margin-bottom: 4px;
         }
         .company-details {
             font-size: 8pt;
-            color: #4a5568;
+            color: #555;
         }
         .quotation-title {
             font-size: 14pt;
             font-weight: 600;
             text-align: center;
-            margin: 8px 0 12px;
+            margin: 10px 0 12px;
             color: #0f3b5c;
         }
         .info-table {
@@ -44,29 +44,42 @@
             border-collapse: collapse;
         }
         .info-table td {
-            padding: 3px 6px;
+            padding: 2px 5px;
             vertical-align: top;
             border: none;
         }
         .info-table .label {
             font-weight: 600;
-            width: 85px;
+            width: 80px;
             color: #2c5282;
         }
-        .info-table .ref-number {
+        /* Right‑aligned column */
+        .info-table .right-col {
+            text-align: right;
+            width: 45%;
+        }
+        .info-table .right-label {
+            font-weight: 600;
+            color: #2c5282;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .info-table .right-value {
+            text-align: left;
+            width: 40%;
+        }
+        .ref-number {
             font-family: monospace;
             background: #f7fafc;
             padding: 1px 4px;
             border-radius: 3px;
-            font-size: 8.5pt;
         }
         .re-line {
             text-align: center;
             text-decoration: underline;
-            margin: 5px 0 10px;
+            margin: 5px 0 12px;
             font-weight: 500;
-            color: #2c5282;
-            font-size: 9pt;
+            font-size: 9.5pt;
         }
         .items-table {
             width: 100%;
@@ -75,24 +88,24 @@
         }
         .items-table th {
             text-align: left;
-            padding: 6px 4px 4px 4px;
+            padding: 5px 4px 4px 4px;
             font-weight: 600;
-            color: #2c5282;
             border-bottom: 1px solid #cbd5e0;
             font-size: 8.5pt;
+            color: #2c5282;
         }
         .items-table td {
-            padding: 6px 4px;
+            padding: 5px 4px;
             border: none;
             vertical-align: top;
-            font-size: 8.5pt;
+            font-size: 9pt;
         }
         .group-header td {
             background-color: #f7fafc;
             font-weight: 600;
-            padding: 4px 4px 2px 4px;
+            padding: 5px 4px 3px 4px;
             color: #1e4a76;
-            font-size: 9pt;
+            font-size: 9.5pt;
         }
         .totals {
             width: 250px;
@@ -103,211 +116,221 @@
         }
         .totals td {
             padding: 3px 0;
-            border: none;
             text-align: right;
             font-size: 9pt;
         }
         .totals .label {
-            font-weight: normal;
             padding-right: 15px;
         }
         .totals .grand-total td {
             font-weight: 700;
             font-size: 10pt;
             padding-top: 6px;
-            border-top: 1px solid #a0aec0;
+            border-top: 1px solid #aaa;
         }
         .terms {
-            margin: 15px 0 12px;
-            font-size: 7.5pt;
-            color: #2d3748;
+            margin: 12px 0 15px;
+            font-size: 8pt;
             border-top: 1px solid #e2e8f0;
             padding-top: 10px;
         }
         .terms p {
             margin: 2px 0;
         }
-        /* SIGNATURE SECTION: FLEX ROW, SIDE BY SIDE */
         .signature-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 20px;
-            gap: 30px;
+            gap: 20px;
         }
-        .signature-box {
+        .signature-left, .signature-right {
             flex: 1;
         }
         .signature-line {
             border-top: 1px solid #4a5568;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 8px;
             margin-bottom: 4px;
         }
         .signature-name {
             font-weight: 600;
-            font-size: 8.5pt;
-            color: #1e4a76;
+            font-size: 9pt;
+            margin-bottom: 2px;
         }
         .signature-title {
-            font-size: 7.5pt;
-            color: #4a5568;
-        }
-        .customer-note {
-            font-size: 7pt;
-            color: #718096;
-            margin-top: 3px;
+            font-size: 8pt;
+            color: #555;
         }
         .footer-note {
-            font-size: 7pt;
-            color: #718096;
-            margin-top: 20px;
+            font-size: 7.5pt;
             text-align: center;
+            margin-top: 20px;
             border-top: 1px solid #e2e8f0;
             padding-top: 10px;
+            color: #718096;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <div class="header">
         <div class="company-name"><?= htmlspecialchars($settings['company_name'] ?? 'Your Company') ?></div>
         <div class="company-details">
             <?= htmlspecialchars($settings['company_phone'] ?? '') ?>
-            <?php if (!empty($settings['company_email'])): ?>
-                | <?= htmlspecialchars($settings['company_email']) ?>
-            <?php endif; ?>
-            <?php if (!empty($settings['company_address'])): ?>
-                <br><?= nl2br(htmlspecialchars($settings['company_address'])) ?>
-            <?php endif; ?>
+            <?php if (!empty($settings['company_email'])): ?> | <?= htmlspecialchars($settings['company_email']) ?><?php endif; ?>
+            <?php if (!empty($settings['company_address'])): ?><br><?= nl2br(htmlspecialchars($settings['company_address'])) ?><?php endif; ?>
         </div>
     </div>
 
     <div class="quotation-title">QUOTATION</div>
 
-    <!-- CUSTOMER INFO TABLE -->
+    <!-- INFO TABLE: left side (Customer, Attention, Contact, Address) and right side (Date, Ref, Our Contact, Mobile) -->
     <table class="info-table">
+        <!-- Row 1: Customer (left) and Date (right) -->
         <tr>
-            <td class="label">Customer:</td>
-            <td><strong><?= htmlspecialchars($quotation['customer_name'] ?? 'Walk-in Customer') ?></strong></td>
-            <td class="label">Date:</td>
-            <td><?= date('d/m/Y', strtotime($quotation['date'] ?? 'now')) ?></td>
+            <td class="label">Customer:<?= !empty($quotation['customer_name']) ? '' : ' ' ?> </td>
+            <td><?= htmlspecialchars($quotation['customer_name'] ?? '') ?></td>
+            <td class="right-label">Date:</td>
+            <td class="right-value"><?= date('d/m/Y', strtotime($quotation['date'] ?? 'now')) ?></td>
         </tr>
+        <!-- Row 2: Attention (left) and Ref (right) -->
         <?php if (!empty($quotation['attention'])): ?>
         <tr>
             <td class="label">Attention:</td>
             <td><?= htmlspecialchars($quotation['attention']) ?></td>
-            <td class="label">Ref:</td>
-            <td><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
+            <td class="right-label">Ref:</td>
+            <td class="right-value"><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
         <?php else: ?>
+        <!-- If no Attention, still output Ref on the right with blank left -->
         <tr>
-            <td class="label"></td><td></td>
-            <td class="label">Ref:</td>
-            <td><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
+            <td class="label"></td>
+            <td></td>
+            <td class="right-label">Ref:</td>
+            <td class="right-value"><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
         <?php endif; ?>
+        <!-- Row 3: Contact (left) and Our Contact (right) -->
         <?php if (!empty($quotation['contact_person'])): ?>
         <tr>
             <td class="label">Contact:</td>
             <td><?= htmlspecialchars($quotation['contact_person']) ?></td>
-            <td class="label">Our Contact:</td>
-            <td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
-                <?= !empty($quotation['our_contact_phone']) ? ' ('.htmlspecialchars($quotation['our_contact_phone']).')' : '' ?>
-            </td>
+            <td class="right-label">Our Contact:</td>
+            <td class="right-value"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
         <?php else: ?>
+        <!-- No Contact: blank left, Our Contact right -->
         <tr>
-            <td class="label"></td><td></td>
-            <td class="label">Our Contact:</td>
-            <td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
-                <?= !empty($quotation['our_contact_phone']) ? ' ('.htmlspecialchars($quotation['our_contact_phone']).')' : '' ?>
-            </td>
+            <td class="label"></td>
+            <td></td>
+            <td class="right-label">Our Contact:</td>
+            <td class="right-value"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
         <?php endif; ?>
+        <!-- Row 4: (blank left) and Mobile No (right) -->
+        <tr>
+            <td class="label"></td>
+            <td></td>
+            <td class="right-label">Mobile No:</td>
+            <td class="right-value"><?= htmlspecialchars($quotation['our_contact_phone'] ?? '') ?></td>
+        </tr>
+        <!-- Row 5: Address (spans both columns on left) -->
         <tr>
             <td class="label">Address:</td>
             <td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td>
         </tr>
     </table>
 
-    <!-- RE LINE -->
     <?php if (!empty($quotation['re_description'])): ?>
-    <div class="re-line">
-        <strong>RE: <?= htmlspecialchars($quotation['re_description']) ?></strong>
-    </div>
+    <div class="re-line">RE: <?= htmlspecialchars($quotation['re_description']) ?></div>
     <?php endif; ?>
 
-    <!-- ITEMS TABLE -->
+    <!-- MERGE DUPLICATE ITEMS -->
+    <?php
+    $mergedItems = [];
+    foreach ($items as $item) {
+        $group = $item['generator_group'] ?? '';
+        $desc = $item['description'] ?? '';
+        $unit = $item['unit'] ?? '';
+        $price = (float)($item['unit_price'] ?? 0);
+        $key = $group . '|' . $desc . '|' . $unit . '|' . $price;
+        if (isset($mergedItems[$key])) {
+            $mergedItems[$key]['quantity'] += (float)($item['quantity'] ?? 0);
+            $mergedItems[$key]['total'] = $mergedItems[$key]['quantity'] * $price;
+        } else {
+            $mergedItems[$key] = [
+                'generator_group' => $group,
+                'description' => $desc,
+                'quantity' => (float)($item['quantity'] ?? 0),
+                'unit' => $unit,
+                'unit_price' => $price,
+                'total' => (float)($item['total'] ?? 0)
+            ];
+        }
+    }
+    ?>
+
     <table class="items-table">
         <thead>
-            <tr>
-                <th style="width:22%">Material Name</th>
-                <th style="width:38%">Description</th>
-                <th style="width:10%">Qty</th>
-                <th style="width:10%">Unit</th>
-                <th style="width:20%">Unit Price (KES)</th>
-            </tr>
+            <tr><th style="width:45%">MATERIAL DESCRIPTION</th><th style="width:15%">QTY</th><th style="width:20%">UNIT PRICE (KES)</th><th style="width:20%">TOTAL (KES)</th></tr>
         </thead>
         <tbody>
         <?php 
         $currentGroup = null;
-        $displayedItems = [];
-        foreach ($items as $item):
+        foreach ($mergedItems as $item):
             $materialName = !empty($item['generator_group']) ? $item['generator_group'] : '';
             $description = $item['description'] ?? '';
-            $uniqueKey = $materialName . '|' . $description . '|' . ($item['quantity'] ?? 0) . '|' . ($item['unit'] ?? '') . '|' . ($item['unit_price'] ?? 0);
-            if (in_array($uniqueKey, $displayedItems)) continue;
-            $displayedItems[] = $uniqueKey;
+            $qty = $item['quantity'];
+            $unit = $item['unit'];
+            $unitPrice = $item['unit_price'];
+            $total = $item['total'];
+            
+            $displayText = $description;
+            if (!empty($unit)) $displayText .= ' ' . $unit;
             
             if (!empty($materialName) && $materialName !== $currentGroup):
                 $currentGroup = $materialName;
         ?>
-            <tr class="group-header"><td colspan="5"><strong><?= htmlspecialchars($materialName) ?></strong></td></tr>
+            <tr class="group-header"><td colspan="4"><strong><?= htmlspecialchars($materialName) ?></strong></td></tr>
         <?php endif; ?>
             <tr>
-                <td><?= htmlspecialchars($materialName) ?></td>
-                <td><?= nl2br(htmlspecialchars($description)) ?></td>
-                <td><?= number_format((float)($item['quantity'] ?? 0), 2) ?></td>
-                <td><?= htmlspecialchars($item['unit'] ?? '') ?></td>
-                <td><?= number_format((float)($item['unit_price'] ?? 0), 2) ?></td>
+                <td><?= htmlspecialchars($displayText) ?></td>
+                <td><?= number_format((float)$qty, 2) ?></td>
+                <td><?= number_format((float)$unitPrice, 2) ?></td>
+                <td><?= number_format((float)$total, 2) ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
 
-    <!-- TOTALS -->
     <table class="totals">
-        <tr><td class="label">Subtotal</td><td>KES <?= number_format((float)($quotation['subtotal'] ?? 0), 2) ?></td></tr>
+        <tr><td class="label">SUB-TOTAL</td><td>KES <?= number_format((float)($quotation['subtotal'] ?? 0), 2) ?></td></tr>
         <?php if (!empty($quotation['vat_included']) && (float)($quotation['vat_amount'] ?? 0) > 0): ?>
         <tr><td class="label">VAT 16%</td><td>KES <?= number_format((float)($quotation['vat_amount'] ?? 0), 2) ?></td></tr>
         <?php endif; ?>
         <tr class="grand-total"><td class="label"><strong>TOTAL</strong></td><td><strong>KES <?= number_format((float)($quotation['total'] ?? 0), 2) ?></strong></td></tr>
     </table>
 
-    <!-- TERMS -->
     <div class="terms">
         <p><strong>Validity:</strong> <?= nl2br(htmlspecialchars($quotation['validity'] ?? '1 month unless cancelled or extended in writing')) ?></p>
         <p><strong>Payment:</strong> <?= nl2br(htmlspecialchars($quotation['payment_terms'] ?? 'Upfront payment for routine service and repair')) ?></p>
         <p><strong>Warranty:</strong> <?= nl2br(htmlspecialchars($quotation['warranty'] ?? '6 months on spares')) ?></p>
     </div>
 
-    <!-- SIGNATURE SECTION: MANAGER + CUSTOMER CONFIRMATION SIDE BY SIDE -->
     <div class="signature-row">
-        <div class="signature-box">
-            <div class="signature-line"></div>
+        <div class="signature-left">
             <div class="signature-name"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></div>
+            <div class="signature-line"></div>
             <div class="signature-title"><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
         </div>
-        <div class="signature-box">
-            <div class="signature-line"></div>
+        <div class="signature-right">
             <div class="signature-name">Customer confirmation</div>
-            <div class="customer-note">(Signature & Date)</div>
+            <div class="signature-line"></div>
         </div>
     </div>
 
     <div class="footer-note">
-        <?= nl2br(htmlspecialchars($settings['footer_text'] ?? 'Thank you for choosing Londiani Electricals')) ?>
+        <?= nl2br(htmlspecialchars($settings['footer_text'] ?? 'Thank you for your business')) ?>
     </div>
 </body>
 </html>
