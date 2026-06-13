@@ -20,7 +20,7 @@ RUN chown -R www-data:www-data /var/www/html/public
 # Install Composer (latest)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies (dompdf, league/oauth2-google)
+# Install PHP dependencies
 WORKDIR /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
@@ -28,5 +28,8 @@ RUN composer install --no-dev --optimize-autoloader
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Keep Apache in foreground
+CMD ["apache2-foreground"]
 
 EXPOSE 80
