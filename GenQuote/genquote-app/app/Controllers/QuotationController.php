@@ -20,7 +20,8 @@ class QuotationController {
     }
 
     public function store() {
-        $customer_id = $_POST['customer_id'] ?: null;
+        // Convert customer_id to integer or null
+        $customer_id = !empty($_POST['customer_id']) ? (int)$_POST['customer_id'] : null;
         $date = $_POST['date'];
         $quotation_number = $_POST['quotation_number'];
         $our_contact = $_POST['our_contact'];
@@ -29,7 +30,7 @@ class QuotationController {
         $validity = $_POST['validity'] ?? null;
         $payment_terms = $_POST['payment_terms'] ?? null;
         $warranty = $_POST['warranty'] ?? null;
-        $vat_included = isset($_POST['vat_included']);
+        $vat_included = isset($_POST['vat_included']) ? true : false;
 
         $generator_groups = $_POST['generator_group'];
         $descriptions = $_POST['item_description'];
@@ -228,16 +229,29 @@ class QuotationController {
             <div class="quotation-title">QUOTATION</div>
             <table class="info-table">
                 <tr><td class="label">Customer:</td><td><strong><?= htmlspecialchars($quotation['customer_name'] ?? 'Walk-in Customer') ?></strong></td>
-                    <td class="label">Date:</td><td><?= date('d/m/Y', strtotime($quotation['date'])) ?></td></tr>
-                <?php if ($quotation['attention']): ?><tr><td class="label">Attention:</td><td><?= htmlspecialchars($quotation['attention']) ?></td>
-                    <td class="label">Ref:</td><td><?= $quotation['quotation_number'] ?></td></tr><?php endif; ?>
-                <?php if ($quotation['contact_person']): ?><tr><td class="label">Contact:</td><td><?= htmlspecialchars($quotation['contact_person']) ?></td>
-                    <td class="label">Our Contact:</td><td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name']) ?> <?= $quotation['our_contact_phone'] ? '(' . htmlspecialchars($quotation['our_contact_phone']) . ')' : '' ?></td></tr><?php endif; ?>
-                <tr><td class="label">Address:</td><td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td></tr>
-                <?php if ($quotation['re_description']): ?><tr><td class="label">RE:</td><td colspan="3"><em><?= htmlspecialchars($quotation['re_description']) ?></em></td></tr><?php endif; ?>
+                    <td class="label">Date:</td><td><?= date('d/m/Y', strtotime($quotation['date'])) ?></td>
+                </tr>
+                <?php if ($quotation['attention']): ?>
+                <tr><td class="label">Attention:</td><td><?= htmlspecialchars($quotation['attention']) ?></td>
+                    <td class="label">Ref:</td><td><?= $quotation['quotation_number'] ?></td>
+                </tr>
+                <?php endif; ?>
+                <?php if ($quotation['contact_person']): ?>
+                <tr><td class="label">Contact:</td><td><?= htmlspecialchars($quotation['contact_person']) ?></td>
+                    <td class="label">Our Contact:</td><td><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name']) ?> <?= $quotation['our_contact_phone'] ? '(' . htmlspecialchars($quotation['our_contact_phone']) . ')' : '' ?></td>
+                </tr>
+                <?php endif; ?>
+                <tr><td class="label">Address:</td><td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td>
+                </tr>
+                <?php if ($quotation['re_description']): ?>
+                <tr><td class="label">RE:</td><td colspan="3"><em><?= htmlspecialchars($quotation['re_description']) ?></em></td>
+                </tr>
+                <?php endif; ?>
             </table>
             <table class="items-table">
-                <thead><tr><th style="width:35%">Description</th><th style="width:12%">Qty</th><th style="width:12%">Unit</th><th style="width:20%">Unit Price (KES)</th><th style="width:21%">Total (KES)</th></tr></thead>
+                <thead>
+                    <tr><th style="width:35%">Description</th><th style="width:12%">Qty</th><th style="width:12%">Unit</th><th style="width:20%">Unit Price (KES)</th><th style="width:21%">Total (KES)</th></tr>
+                </thead>
                 <tbody>
                 <?php 
                 $currentGen = null;
@@ -259,7 +273,9 @@ class QuotationController {
             </table>
             <table class="totals">
                 <tr><td class="label">Subtotal</td><td>KES <?= number_format($quotation['subtotal'], 2) ?></td></tr>
-                <?php if ($quotation['vat_included']): ?><tr><td class="label">VAT 16%</td><td>KES <?= number_format($quotation['vat_amount'], 2) ?></td></tr><?php endif; ?>
+                <?php if ($quotation['vat_included']): ?>
+                <tr><td class="label">VAT 16%</td><td>KES <?= number_format($quotation['vat_amount'], 2) ?></td></tr>
+                <?php endif; ?>
                 <tr class="grand-total"><td class="label"><strong>TOTAL</strong></td><td><strong>KES <?= number_format($quotation['total'], 2) ?></strong></td></tr>
             </table>
             <div class="terms">
@@ -278,3 +294,4 @@ class QuotationController {
         return ob_get_clean();
     }
 }
+?>
