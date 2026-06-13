@@ -1,8 +1,8 @@
 FROM php:8.2-apache
 
-# Install PostgreSQL driver and other extensions
-RUN apt-get update && apt-get install -y libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+# Install system dependencies including zip/unzip and PostgreSQL driver
+RUN apt-get update && apt-get install -y libpq-dev zip unzip \
+    && docker-php-ext-install pdo pdo_pgsql zip
 
 # Enable mod_rewrite for clean URLs
 RUN a2enmod rewrite
@@ -16,7 +16,7 @@ RUN chown -R www-data:www-data /var/www/html/public
 # Install Composer (latest)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies (dompdf)
+# Install PHP dependencies (dompdf, league/oauth2-google)
 WORKDIR /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
