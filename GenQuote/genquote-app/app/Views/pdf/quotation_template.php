@@ -111,9 +111,7 @@
             margin: 8px 0 12px;
         }
 
-        /* ══ ITEMS TABLE — ALL IN ONE ROW ════════════════════════
-           Columns: No. | Generator / Description | Qty | Unit Price | Total
-        ══════════════════════════════════════════════════════════ */
+        /* ══ ITEMS TABLE — ALL IN ONE ROW ════════════════════════ */
         .items-table {
             width: 100%;
             border-collapse: collapse;
@@ -121,7 +119,6 @@
             margin-bottom: 0;
         }
 
-        /* Header row */
         .items-table thead tr { background: #0D3B6E; }
 
         .items-table th {
@@ -136,7 +133,6 @@
 
         .items-table th.r { text-align: right; }
 
-        /* Group / generator name row */
         .gen-row td {
             background: #EBF4FF;
             font-weight: 700;
@@ -163,7 +159,6 @@
             flex-shrink: 0;
         }
 
-        /* Item rows */
         .item-row td {
             padding: 4.5px 7px;
             border-bottom: 1px solid #E8EFF7;
@@ -173,7 +168,6 @@
 
         .item-row:nth-child(even) td { background: #F8FBFF; }
 
-        /* Number cell */
         .cell-no {
             width: 26px;
             text-align: center;
@@ -182,28 +176,19 @@
             white-space: nowrap;
         }
 
-        /* Material name cell — bold, navy */
         .cell-material {
             font-weight: 700;
             color: #0D3B6E;
             white-space: nowrap;
         }
 
-        /* Description cell */
         .cell-desc {
             color: #2D3F50;
         }
 
-        /* Right-aligned cells */
         .cell-r {
             text-align: right;
             white-space: nowrap;
-        }
-
-        /* Labour / service rows — italic, slightly muted */
-        .labour-row td {
-            font-style: italic;
-            color: #4A5A6A;
         }
 
         /* ══ TOTALS ══════════════════════════════════════════════ */
@@ -247,14 +232,11 @@
             margin-top: 4px;
         }
 
-        /* Terms stacked as plain lines — matching the PDF style */
         .terms-list {
             margin-bottom: 14px;
             font-size: 9pt;
-            line-height: 2;
+            line-height: 1.8;
         }
-
-        .terms-list p { }
 
         .terms-list .t-key {
             font-weight: 700;
@@ -263,39 +245,6 @@
 
         .terms-list .t-val {
             color: #2D3F50;
-        }
-
-        /* Signer name */
-        .signer-name {
-            font-size: 9pt;
-            font-weight: 600;
-            color: #1C2B3A;
-            margin-bottom: 18px;
-        }
-
-        /* Signature row — two columns with dotted lines */
-        .sig-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 40px;
-            margin-top: 4px;
-        }
-
-        .sig-block { flex: 1; }
-
-        /* Dotted line — matches the PDF exactly */
-        .dotted-line {
-            border: none;
-            border-bottom: 1.5px dotted #5A6A7A;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-
-        .sig-caption {
-            font-size: 9pt;
-            font-weight: 600;
-            color: #1C2B3A;
         }
 
         /* ══ FOOTER ══════════════════════════════════════════════ */
@@ -308,11 +257,9 @@
             color: #9AA8B8;
         }
 
-        /* ══ PRINT ═══════════════════════════════════════════════ */
         @media print {
             body { padding: 0.3in 0.4in; }
             .items-table thead tr,
-            .gen-row td,
             .totals .gt-row td,
             .doc-title { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
@@ -328,13 +275,9 @@
             <?php if (!empty($settings['company_email'])): ?> &nbsp;|&nbsp; <?= htmlspecialchars($settings['company_email']) ?><?php endif; ?>
             <?php if (!empty($settings['company_address'])): ?><br><?= nl2br(htmlspecialchars($settings['company_address'])) ?><?php endif; ?>
         </div>
-        <?php if (!empty($settings['logo_strip_html'])): ?>
-        <div class="logo-strip"><?= $settings['logo_strip_html'] ?></div>
-        <?php else: ?>
         <div class="logo-strip" style="font-size:7pt; color:#9AA8B8; letter-spacing:1px;">
             DSE &nbsp;·&nbsp; PERKINS &nbsp;·&nbsp; CUMMINS &nbsp;·&nbsp; DEUTZ
         </div>
-        <?php endif; ?>
     </div>
 
     <!-- DOC TITLE -->
@@ -358,7 +301,8 @@
             <td class="rval"><span class="ref-pill"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
         <?php else: ?>
-        <tr><td class="lbl"></td><td></td>
+        <tr>
+            <td class="lbl"></td><td></td>
             <td class="rlbl">Ref:</td>
             <td class="rval"><span class="ref-pill"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
@@ -371,7 +315,8 @@
             <td class="rval"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
         <?php else: ?>
-        <tr><td class="lbl"></td><td></td>
+        <tr>
+            <td class="lbl"></td><td></td>
             <td class="rlbl">Our Contact:</td>
             <td class="rval"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
@@ -393,7 +338,7 @@
     <?php endif; ?>
 
     <?php
-    // ── Merge duplicate items — LOGIC UNCHANGED ──────────────
+    // Merge duplicate items
     $mergedItems = [];
     if (!empty($items)) {
         foreach ($items as $item) {
@@ -448,7 +393,6 @@
                 $qtyUnit = number_format((float)$qty, 2);
                 if (!empty($unit)) { $qtyUnit .= ' ' . $unit; }
 
-                // Track group changes for numbering only
                 if (!empty($materialName) && $materialName !== $currentGroup):
                     $currentGroup = $materialName;
                     $groupNumber++;
@@ -456,16 +400,14 @@
                 endif;
 
                 $itemNumber++;
-                // Detect labour/sundry rows (no unit price)
-                $isLabour = ($unitPrice == 0 && $total > 0);
-                $rowClass = 'item-row' . ($isLabour ? ' labour-row' : '');
+                $rowClass = 'item-row';
         ?>
             <tr class="<?= $rowClass ?>">
                 <td class="cell-no"><?= $groupNumber ?>.<?= $itemNumber ?></td>
                 <td class="cell-material"><?= htmlspecialchars($materialName) ?></td>
                 <td class="cell-desc"><?= htmlspecialchars($description) ?></td>
-                <td class="cell-r"><?= $unitPrice > 0 ? htmlspecialchars($qtyUnit) : '—' ?></td>
-                <td class="cell-r"><?= $unitPrice > 0 ? number_format((float)$unitPrice, 2) : '—' ?></td>
+                <td class="cell-r"><?= htmlspecialchars($qtyUnit) ?></td>
+                <td class="cell-r"><?= number_format((float)$unitPrice, 2) ?></td>
                 <td class="cell-r"><?= number_format((float)$total, 2) ?></td>
             </tr>
         <?php
@@ -497,29 +439,30 @@
 
     <!-- LOWER BLOCK: Terms + Signature -->
     <div class="lower-block">
-
-        <!-- Terms — plain labeled lines exactly like the PDF -->
+        <!-- Terms -->
         <div class="terms-list">
             <p><span class="t-key">Validity: </span><span class="t-val"><?= htmlspecialchars($quotation['validity'] ?? '1 month unless cancelled or extended in writing') ?></span></p>
             <p><span class="t-key">Payment: </span><span class="t-val"><?= htmlspecialchars($quotation['payment_terms'] ?? 'Upfront payment for routine service and repair.') ?></span></p>
             <p><span class="t-key">Warranty: </span><span class="t-val"><?= htmlspecialchars($quotation['warranty'] ?? '6 months on spares') ?></span></p>
         </div>
 
-        <!-- Signer name above the lines -->
-        <div class="signer-name"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></div>
-
-        <!-- Dual dotted signature lines -->
-        <div class="sig-row">
-            <div class="sig-block">
-                <div class="dotted-line"></div>
-                <div class="sig-caption"><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
+        <!-- Signature row: FIXED – side by side -->
+        <div style="display: flex; justify-content: space-between; gap: 30px; margin-top: 20px;">
+            <!-- Left: Manager -->
+            <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 10pt; margin-bottom: 25px;">
+                    <?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?>
+                </div>
+                <div style="border-bottom: 1.5px dotted #4a5568; width: 100%; margin-bottom: 6px;"></div>
+                <div style="font-size: 9pt; font-weight: 600;"><?= htmlspecialchars($settings['manager_title'] ?? 'Manager') ?></div>
             </div>
-            <div class="sig-block">
-                <div class="dotted-line"></div>
-                <div class="sig-caption">Customer Confirmation</div>
+            <!-- Right: Customer confirmation -->
+            <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 10pt; margin-bottom: 25px;">&nbsp;</div>
+                <div style="border-bottom: 1.5px dotted #4a5568; width: 100%; margin-bottom: 6px;"></div>
+                <div style="font-size: 9pt; font-weight: 600;">Customer Confirmation</div>
             </div>
         </div>
-
     </div>
 
     <!-- FOOTER -->
