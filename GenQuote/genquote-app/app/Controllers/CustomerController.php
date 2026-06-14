@@ -5,14 +5,17 @@ class CustomerController {
         global $pdo;
         $this->pdo = $pdo;
     }
+
     public function index() {
         $stmt = $this->pdo->query("SELECT * FROM customers ORDER BY name");
         $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         include __DIR__ . '/../Views/customers/index.php';
     }
+
     public function create() {
         include __DIR__ . '/../Views/customers/create.php';
     }
+
     public function store() {
         $name = $_POST['name'];
         $attention = $_POST['attention'];

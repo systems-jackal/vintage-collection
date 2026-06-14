@@ -10,7 +10,6 @@ if (strpos($request, $basePath) === 0) {
 }
 if (empty($request)) $request = '/';
 
-// Public routes (no login required)
 $publicRoutes = ['/login', '/do-login', '/register', '/do-register'];
 
 if (!isset($_SESSION['user_id']) && !in_array($request, $publicRoutes)) {

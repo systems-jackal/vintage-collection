@@ -83,7 +83,6 @@ class QuotationController {
         $stmt = $this->pdo->query("SELECT * FROM settings LIMIT 1");
         $settings = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Load the separate PDF template file
         ob_start();
         include __DIR__ . '/../Views/pdf/quotation_template.php';
         $html = ob_get_clean();
