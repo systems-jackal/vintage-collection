@@ -10,7 +10,11 @@ if (strpos($request, $basePath) === 0) {
 }
 if (empty($request)) $request = '/';
 
-$publicRoutes = ['/login', '/do-login', '/register', '/do-register'];
+$publicRoutes = [
+    '/login', '/do-login', 
+    '/register', '/do-register', 
+    '/login/google', '/login/google-callback'
+];
 
 if (!isset($_SESSION['user_id']) && !in_array($request, $publicRoutes)) {
     header('Location: /login');
@@ -38,6 +42,14 @@ switch ($request) {
     case '/do-register':
         require_once __DIR__ . '/../app/Controllers/AuthController.php';
         (new AuthController())->register();
+        break;
+    case '/login/google':
+        require_once __DIR__ . '/../app/Controllers/AuthController.php';
+        (new AuthController())->redirectToGoogle();
+        break;
+    case '/login/google-callback':
+        require_once __DIR__ . '/../app/Controllers/AuthController.php';
+        (new AuthController())->handleGoogleCallback();
         break;
     case '/logout':
         require_once __DIR__ . '/../app/Controllers/AuthController.php';

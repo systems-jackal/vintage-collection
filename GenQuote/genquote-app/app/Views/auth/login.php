@@ -11,17 +11,21 @@
         <?php if (isset($_GET['error'])): ?>
             <div class="error"><?= htmlspecialchars($_GET['error']) ?></div>
         <?php endif; ?>
+        
+        <!-- Email/Password Form -->
         <form method="POST" action="/do-login">
-            <div class="input-group">
-                <i class="fas fa-envelope"></i>
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
             <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
         </form>
+
+        <!-- Google Login Button -->
+        <div class="google-login">
+            <a href="/login/google" class="google-btn">
+                <i class="fab fa-google"></i> Login with Google
+            </a>
+        </div>
+
         <div class="register-link">
             <a href="/register"><i class="fas fa-user-plus"></i> Create new account</a>
         </div>
