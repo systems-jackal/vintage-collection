@@ -1,5 +1,5 @@
 <?php include 'partials/header.php'; ?>
-<div class="dashboard">
+<div class="dashboard dashboard-bg">
     <h2><i class="fas fa-tachometer-alt"></i> Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?>!</h2>
     <div class="cards">
         <a href="/quotations/create" class="card">
