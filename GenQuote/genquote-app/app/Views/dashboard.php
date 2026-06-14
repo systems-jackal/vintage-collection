@@ -1,5 +1,8 @@
-<?php include 'partials/header.php'; ?>
-<div class="dashboard dashboard-bg">
+<?php 
+$body_class = 'dashboard-page';
+include 'partials/header.php'; 
+?>
+<div class="dashboard">
     <h2><i class="fas fa-tachometer-alt"></i> Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?>!</h2>
     <div class="cards">
         <a href="/quotations/create" class="card">
