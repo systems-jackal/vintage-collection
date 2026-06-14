@@ -167,7 +167,7 @@ nav a:hover {
 }
 /* ========== FULL‑SCREEN DASHBOARD BACKGROUND ========== */
 body.dashboard-page {
-    background-image: url('https://imgs.search.brave.com/vK_lYjIRokKkENM5tCZZ2QuqliGPtT5lfNPn27M0yAk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zN2Qy/LnNjZW5lNy5jb20v/aXMvaW1hZ2UvQ2F0/ZXJwaWxsYXIvQ00y/MDI1MDYxOC05NmJk/OS1mYTc0MQ');  /* ⬅️ REPLACE WITH YOUR ACTUAL IMAGE URL */
+    background-image: url('https://imgs.search.brave.com/vK_lYjIRokKkENM5tCZZ2QuqliGPtT5lfNPn27M0yAk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zN2Qy/LnNjZW5lNy5jb20v/aXMvaW1hZ2UvQ2F0/ZXJwaWxsYXIvQ00y/MDI1MDYxOC05NmJk/OS1mYTc0MQ');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -180,7 +180,7 @@ body.dashboard-page::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(13, 59, 110, 0.6); /* Navy overlay for readability */
+    background: rgba(13, 59, 110, 0.6);
     z-index: -1;
 }
 /* ========== BUTTONS ========== */
@@ -336,22 +336,467 @@ button.remove-row:hover {
     padding-top: 8px;
     margin-top: 8px;
 }
-/* ========== RESPONSIVE ========== */
+/* ========== GOOGLE LOGIN BUTTON ========== */
+.google-login {
+    margin: 15px 0;
+}
+.google-btn {
+    display: inline-block;
+    background: #DB4437;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+.google-btn i {
+    margin-right: 8px;
+}
+.google-btn:hover {
+    background: #C1351D;
+}
+
+/* ========== MOBILE RESPONSIVENESS (max-width: 768px) ========== */
 @media (max-width: 768px) {
+    /* Stack navigation vertically */
+    nav {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    /* Reduce container padding and margins */
     .container {
         margin: 1rem;
         padding: 1rem;
+        overflow-x: auto;
     }
+    /* Make dashboard cards full width */
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .card {
+        width: 100%;
+        max-width: 280px;
+        padding: 1.2rem;
+    }
+    .dashboard h2 {
+        font-size: 1.3rem;
+        padding-left: 0.8rem;
+    }
+    /* Stack form rows */
     .form-row {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.8rem;
     }
-    .cards {
-        justify-content: center;
+    /* Make dynamic items table horizontally scrollable */
+    .dynamic-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
-    nav {
-        justify-content: center;
+    .dynamic-table th, .dynamic-table td {
+        white-space: normal;
     }
+    /* Adjust table cell padding */
+    .dynamic-table th, .dynamic-table td {
+        padding: 6px 4px;
+    }
+    /* Buttons full width */
+    .btn, button[type="submit"], .cancel, .google-btn {
+        width: 100%;
+        text-align: center;
+        margin: 0.3rem 0;
+        display: block;
+    }
+    .cancel {
+        margin-left: 0;
+    }
+    /* Totals section left aligned on mobile */
+    .totals-section {
+        text-align: left;
+        padding: 0.8rem;
+    }
+    .totals-section .grand-total {
+        font-size: 1.2rem;
+    }
+    /* Customer table scrollable */
+    .data-table {
+        display: block;
+        overflow-x: auto;
+    }
+    /* Login container width adjustment */
+    .login-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}
+
+/* ========== EXTRA SMALL DEVICES (max-width: 480px) ========== */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    .dynamic-table th, .dynamic-table td {
+        font-size: 12px;
+        padding: 4px 2px;
+    }
+    /* Prevent zoom on iOS inputs */
+    .form-group input, .form-group select, .form-group textarea {
+        font-size: 14px;
+    }
+    .card i {
+        font-size: 2rem;
+    }
+    .card span {
+        font-size: 0.9rem;
+    }
+}/* =====================================================
+   GENQUOTE – Professional Web Interface
+   Colors: Navy (#0D3B6E), Gold (#C9952A), Light Gray (#F7F9FC)
+   ===================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #F0F4F8;
+    color: #1C2B3A;
+    line-height: 1.5;
+}
+/* ========== NAVBAR ========== */
+nav {
+    background: #0D3B6E;
+    padding: 0.8rem 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+nav a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+/* ========== MAIN CONTAINER ========== */
+.container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+/* ========== LOGIN & REGISTER PAGES ========== */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0D3B6E 0%, #1A5A9C 100%);
+}
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 360px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.login-container h2 {
+    color: #0D3B6E;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #CBD5E0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+.login-container input:focus {
+    outline: none;
+    border-color: #C9952A;
+    box-shadow: 0 0 0 3px rgba(201,149,42,0.2);
+}
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background: #0D3B6E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+.login-container button:hover {
+    background: #1A5A9C;
+}
+.error {
+    background: #FEE2E2;
+    color: #B91C1C;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+.register-link {
+    margin-top: 15px;
+}
+.register-link a {
+    color: #0D3B6E;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+.register-link a:hover {
+    text-decoration: underline;
+}
+/* ========== DASHBOARD CARDS ========== */
+.dashboard h2 {
+    color: #0D3B6E;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    border-left: 4px solid #C9952A;
+    padding-left: 1rem;
+}
+.cards {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F7F9FC;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #0D3B6E;
+    width: 200px;
+    transition: all 0.2s;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    text-align: center;
+}
+.card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #C9952A;
+}
+.card span {
+    font-weight: 600;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    border-color: #C9952A;
+}
+.card.logout {
+    background: #FFF5F5;
+    color: #C53030;
+}
+.card.logout i {
+    color: #C53030;
+}
+/* ========== FULL‑SCREEN DASHBOARD BACKGROUND ========== */
+body.dashboard-page {
+    background-image: url('https://imgs.search.brave.com/vK_lYjIRokKkENM5tCZZ2QuqliGPtT5lfNPn27M0yAk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zN2Qy/LnNjZW5lNy5jb20v/aXMvaW1hZ2UvQ2F0/ZXJwaWxsYXIvQ00y/MDI1MDYxOC05NmJk/OS1mYTc0MQ');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    position: relative;
+}
+body.dashboard-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 59, 110, 0.6);
+    z-index: -1;
+}
+/* ========== BUTTONS ========== */
+.btn, button[type="submit"], .btn-primary {
+    background: #0D3B6E;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.btn:hover, button[type="submit"]:hover {
+    background: #1A5A9C;
+}
+button.remove-row {
+    background: #DC2626;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+button.remove-row:hover {
+    background: #B91C1C;
+}
+.cancel {
+    background: #E2E8F0;
+    color: #1C2B3A;
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.cancel:hover {
+    background: #CBD5E0;
+}
+/* ========== TABLES (Customers) ========== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+.data-table th {
+    background: #F1F5F9;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #0D3B6E;
+    border-bottom: 2px solid #E2E8F0;
+}
+.data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #E2E8F0;
+    color: #1C2B3A;
+}
+.data-table tr:hover td {
+    background: #F8FAFF;
+}
+.edit-link {
+    color: #0D3B6E;
+    font-size: 1.1rem;
+}
+.edit-link:hover {
+    color: #C9952A;
+}
+/* ========== FORMS (Customers, Quotation) ========== */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #0D3B6E;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #CBD5E0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: #C9952A;
+    box-shadow: 0 0 0 3px rgba(201,149,42,0.1);
+}
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+}
+.form-row .form-group {
+    flex: 1;
+}
+/* ========== DYNAMIC TABLE (Items) ========== */
+.dynamic-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+.dynamic-table th, 
+.dynamic-table td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid #E2E8F0;
+}
+.dynamic-table th {
+    background: #F8FAFF;
+    color: #0D3B6E;
+    font-weight: 600;
+}
+.dynamic-table input, 
+.dynamic-table textarea, 
+.dynamic-table select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+}
+/* ========== TOTALS SECTION ========== */
+.totals-section {
+    background: #F7F9FC;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    text-align: right;
+    margin-top: 1rem;
+}
+.totals-section div {
+    margin: 6px 0;
+    font-size: 1rem;
+}
+.totals-section .grand-total {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0D3B6E;
+    border-top: 2px solid #C9952A;
+    padding-top: 8px;
+    margin-top: 8px;
 }
 /* ========== GOOGLE LOGIN BUTTON ========== */
 .google-login {
@@ -375,4 +820,106 @@ button.remove-row:hover {
 }
 .google-btn:hover {
     background: #C1351D;
+}
+
+/* ========== MOBILE RESPONSIVENESS (max-width: 768px) ========== */
+@media (max-width: 768px) {
+    /* Stack navigation vertically */
+    nav {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    /* Reduce container padding and margins */
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+    /* Make dashboard cards full width */
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .card {
+        width: 100%;
+        max-width: 280px;
+        padding: 1.2rem;
+    }
+    .dashboard h2 {
+        font-size: 1.3rem;
+        padding-left: 0.8rem;
+    }
+    /* Stack form rows */
+    .form-row {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    /* Make dynamic items table horizontally scrollable */
+    .dynamic-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .dynamic-table th, .dynamic-table td {
+        white-space: normal;
+    }
+    /* Adjust table cell padding */
+    .dynamic-table th, .dynamic-table td {
+        padding: 6px 4px;
+    }
+    /* Buttons full width */
+    .btn, button[type="submit"], .cancel, .google-btn {
+        width: 100%;
+        text-align: center;
+        margin: 0.3rem 0;
+        display: block;
+    }
+    .cancel {
+        margin-left: 0;
+    }
+    /* Totals section left aligned on mobile */
+    .totals-section {
+        text-align: left;
+        padding: 0.8rem;
+    }
+    .totals-section .grand-total {
+        font-size: 1.2rem;
+    }
+    /* Customer table scrollable */
+    .data-table {
+        display: block;
+        overflow-x: auto;
+    }
+    /* Login container width adjustment */
+    .login-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}
+
+/* ========== EXTRA SMALL DEVICES (max-width: 480px) ========== */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    .dynamic-table th, .dynamic-table td {
+        font-size: 12px;
+        padding: 4px 2px;
+    }
+    /* Prevent zoom on iOS inputs */
+    .form-group input, .form-group select, .form-group textarea {
+        font-size: 14px;
+    }
+    .card i {
+        font-size: 2rem;
+    }
+    .card span {
+        font-size: 0.9rem;
+    }
 }
