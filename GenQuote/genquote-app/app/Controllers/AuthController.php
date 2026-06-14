@@ -17,17 +17,14 @@ class AuthController {
         ]);
     }
 
-    // Show login form
     public function loginForm() {
         include __DIR__ . '/../Views/auth/login.php';
     }
 
-    // Show registration form
     public function registerForm() {
         include __DIR__ . '/../Views/auth/register.php';
     }
 
-    // Handle email/password registration
     public function register() {
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -39,28 +36,35 @@ class AuthController {
             $_SESSION['user_id'] = $this->pdo->lastInsertId();
             $_SESSION['user_name'] = $name;
             header('Location: /dashboard');
+            exit;
         } catch (PDOException $e) {
-            header('Location: /register?error=Email already exists');
+            setFlash('error', 'Email already exists. Please login or use a different email.');
+            header('Location: /register');
+            exit;
         }
     }
 
-    // Handle email/password login
     public function login() {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user && password_verify($password, $user['password'])) {
+
+        // Check if user exists and has a password (not Google-only)
+        if ($user && !empty($user['password']) && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             header('Location: /dashboard');
+            exit;
         } else {
-            header('Location: /login?error=Invalid credentials');
+            setFlash('error', 'Invalid email/password or account may use Google login.');
+            header('Location: /login');
+            exit;
         }
     }
 
-    // Redirect to Google
     public function redirectToGoogle() {
         $provider = $this->getGoogleProvider();
         $authUrl = $provider->getAuthorizationUrl();
@@ -69,11 +73,11 @@ class AuthController {
         exit;
     }
 
-    // Google callback
     public function handleGoogleCallback() {
         if (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
             unset($_SESSION['oauth2state']);
-            header('Location: /login?error=Invalid state');
+            setFlash('error', 'Invalid Google authentication state.');
+            header('Location: /login');
             exit;
         }
 
@@ -106,7 +110,8 @@ class AuthController {
             header('Location: /dashboard');
             exit;
         } catch (Exception $e) {
-            header('Location: /login?error=Google login failed: ' . $e->getMessage());
+            setFlash('error', 'Google login failed. Please try again.');
+            header('Location: /login');
             exit;
         }
     }
@@ -114,6 +119,6 @@ class AuthController {
     public function logout() {
         session_destroy();
         header('Location: /login');
+        exit;
     }
 }
-?>

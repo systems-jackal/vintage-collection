@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+// Flash message helper
+function setFlash($key, $message) {
+    $_SESSION['flash'][$key] = $message;
+}
+function getFlash($key) {
+    if (isset($_SESSION['flash'][$key])) {
+        $msg = $_SESSION['flash'][$key];
+        unset($_SESSION['flash'][$key]);
+        return $msg;
+    }
+    return null;
+}
+
 require_once __DIR__ . '/../config/database.php';
 
 $request = $_SERVER['REQUEST_URI'];
@@ -11,8 +25,8 @@ if (strpos($request, $basePath) === 0) {
 if (empty($request)) $request = '/';
 
 $publicRoutes = [
-    '/login', '/do-login', 
-    '/register', '/do-register', 
+    '/login', '/do-login',
+    '/register', '/do-register',
     '/login/google', '/login/google-callback'
 ];
 
