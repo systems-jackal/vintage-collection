@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,11 +51,6 @@
             font-weight: 600;
             width: 80px;
             color: #2c5282;
-        }
-        /* Right‑aligned column */
-        .info-table .right-col {
-            text-align: right;
-            width: 45%;
         }
         .info-table .right-label {
             font-weight: 600;
@@ -184,16 +178,13 @@
 
     <div class="quotation-title">QUOTATION</div>
 
-    <!-- INFO TABLE: left side (Customer, Attention, Contact, Address) and right side (Date, Ref, Our Contact, Mobile) -->
     <table class="info-table">
-        <!-- Row 1: Customer (left) and Date (right) -->
         <tr>
             <td class="label">Customer:<?= !empty($quotation['customer_name']) ? '' : ' ' ?> </td>
             <td><?= htmlspecialchars($quotation['customer_name'] ?? '') ?></td>
             <td class="right-label">Date:</td>
             <td class="right-value"><?= date('d/m/Y', strtotime($quotation['date'] ?? 'now')) ?></td>
         </tr>
-        <!-- Row 2: Attention (left) and Ref (right) -->
         <?php if (!empty($quotation['attention'])): ?>
         <tr>
             <td class="label">Attention:</td>
@@ -202,15 +193,12 @@
             <td class="right-value"><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
         <?php else: ?>
-        <!-- If no Attention, still output Ref on the right with blank left -->
         <tr>
-            <td class="label"></td>
-            <td></td>
+            <td class="label"></td><td></td>
             <td class="right-label">Ref:</td>
             <td class="right-value"><span class="ref-number"><?= htmlspecialchars($quotation['quotation_number'] ?? '') ?></span></td>
         </tr>
         <?php endif; ?>
-        <!-- Row 3: Contact (left) and Our Contact (right) -->
         <?php if (!empty($quotation['contact_person'])): ?>
         <tr>
             <td class="label">Contact:</td>
@@ -219,22 +207,17 @@
             <td class="right-value"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
         <?php else: ?>
-        <!-- No Contact: blank left, Our Contact right -->
         <tr>
-            <td class="label"></td>
-            <td></td>
+            <td class="label"></td><td></td>
             <td class="right-label">Our Contact:</td>
             <td class="right-value"><?= htmlspecialchars($quotation['our_contact'] ?? $settings['manager_name'] ?? '') ?></td>
         </tr>
         <?php endif; ?>
-        <!-- Row 4: (blank left) and Mobile No (right) -->
         <tr>
-            <td class="label"></td>
-            <td></td>
+            <td class="label"></td><td></td>
             <td class="right-label">Mobile No:</td>
             <td class="right-value"><?= htmlspecialchars($quotation['our_contact_phone'] ?? '') ?></td>
         </tr>
-        <!-- Row 5: Address (spans both columns on left) -->
         <tr>
             <td class="label">Address:</td>
             <td colspan="3"><?= nl2br(htmlspecialchars($quotation['address'] ?? '')) ?></td>
@@ -245,61 +228,74 @@
     <div class="re-line">RE: <?= htmlspecialchars($quotation['re_description']) ?></div>
     <?php endif; ?>
 
-    <!-- MERGE DUPLICATE ITEMS -->
     <?php
+    // Merge duplicate items (same description, unit, price)
     $mergedItems = [];
-    foreach ($items as $item) {
-        $group = $item['generator_group'] ?? '';
-        $desc = $item['description'] ?? '';
-        $unit = $item['unit'] ?? '';
-        $price = (float)($item['unit_price'] ?? 0);
-        $key = $group . '|' . $desc . '|' . $unit . '|' . $price;
-        if (isset($mergedItems[$key])) {
-            $mergedItems[$key]['quantity'] += (float)($item['quantity'] ?? 0);
-            $mergedItems[$key]['total'] = $mergedItems[$key]['quantity'] * $price;
-        } else {
-            $mergedItems[$key] = [
-                'generator_group' => $group,
-                'description' => $desc,
-                'quantity' => (float)($item['quantity'] ?? 0),
-                'unit' => $unit,
-                'unit_price' => $price,
-                'total' => (float)($item['total'] ?? 0)
-            ];
+    if (!empty($items)) {
+        foreach ($items as $item) {
+            $group = $item['generator_group'] ?? '';
+            $desc = $item['description'] ?? '';
+            $unit = $item['unit'] ?? '';
+            $price = (float)($item['unit_price'] ?? 0);
+            $key = $group . '|' . $desc . '|' . $unit . '|' . $price;
+            if (isset($mergedItems[$key])) {
+                $mergedItems[$key]['quantity'] += (float)($item['quantity'] ?? 0);
+                $mergedItems[$key]['total'] = $mergedItems[$key]['quantity'] * $price;
+            } else {
+                $mergedItems[$key] = [
+                    'generator_group' => $group,
+                    'description' => $desc,
+                    'quantity' => (float)($item['quantity'] ?? 0),
+                    'unit' => $unit,
+                    'unit_price' => $price,
+                    'total' => (float)($item['total'] ?? 0)
+                ];
+            }
         }
     }
     ?>
 
     <table class="items-table">
         <thead>
-            <tr><th style="width:45%">MATERIAL DESCRIPTION</th><th style="width:15%">QTY</th><th style="width:20%">UNIT PRICE (KES)</th><th style="width:20%">TOTAL (KES)</th></tr>
+            <tr>
+                <th style="width:45%">MATERIAL DESCRIPTION</th>
+                <th style="width:20%">QTY/UNIT</th>
+                <th style="width:17%">UNIT PRICE (KES)</th>
+                <th style="width:18%">TOTAL (KES)</th>
+            </tr>
         </thead>
         <tbody>
         <?php 
         $currentGroup = null;
-        foreach ($mergedItems as $item):
-            $materialName = !empty($item['generator_group']) ? $item['generator_group'] : '';
-            $description = $item['description'] ?? '';
-            $qty = $item['quantity'];
-            $unit = $item['unit'];
-            $unitPrice = $item['unit_price'];
-            $total = $item['total'];
-            
-            $displayText = $description;
-            if (!empty($unit)) $displayText .= ' ' . $unit;
-            
-            if (!empty($materialName) && $materialName !== $currentGroup):
-                $currentGroup = $materialName;
+        if (!empty($mergedItems)):
+            foreach ($mergedItems as $item):
+                $materialName = $item['generator_group'] ?? '';
+                $description = $item['description'] ?? '';
+                $qty = $item['quantity'];
+                $unit = $item['unit'];
+                $unitPrice = $item['unit_price'];
+                $total = $item['total'];
+                
+                $qtyUnit = number_format((float)$qty, 2);
+                if (!empty($unit)) {
+                    $qtyUnit .= ' ' . $unit;
+                }
+                
+                if (!empty($materialName) && $materialName !== $currentGroup):
+                    $currentGroup = $materialName;
         ?>
             <tr class="group-header"><td colspan="4"><strong><?= htmlspecialchars($materialName) ?></strong></td></tr>
         <?php endif; ?>
             <tr>
-                <td><?= htmlspecialchars($displayText) ?></td>
-                <td><?= number_format((float)$qty, 2) ?></td>
+                <td><?= htmlspecialchars($description) ?></td>
+                <td><?= htmlspecialchars($qtyUnit) ?></td>
                 <td><?= number_format((float)$unitPrice, 2) ?></td>
                 <td><?= number_format((float)$total, 2) ?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php 
+            endforeach;
+        endif; 
+        ?>
         </tbody>
     </table>
 
