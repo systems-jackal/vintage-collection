@@ -4,7 +4,6 @@ RUN apt-get update && apt-get install -y libpq-dev libzip-dev zip unzip git \
     && docker-php-ext-install pdo pdo_pgsql zip
 
 RUN a2enmod rewrite
-
 RUN sed -i '/<Directory \/var\/www\/>/a \    AllowOverride All' /etc/apache2/apache2.conf
 
 COPY . /var/www/html/
@@ -12,13 +11,17 @@ COPY . /var/www/html/
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
-# Install dependencies (including league/oauth2-google) using composer.json
-RUN composer install --no-dev --optimize-autoloader
+# Install Composer dependencies (other than Google OAuth, if any)
+RUN composer install --no-dev --optimize-autoloader || true
 
-# As a safety, if the Google package is still missing, manually clone it
-RUN if [ ! -d vendor/league/oauth2-google ]; then \
-        composer require league/oauth2-google --no-interaction; \
-    fi
+# Manually install league/oauth2-google
+RUN mkdir -p vendor/league && \
+    cd vendor/league && \
+    git clone https://github.com/thephpleague/oauth2-google.git && \
+    cd oauth2-google && \
+    composer install --no-dev && \
+    cd /var/www/html && \
+    composer dump-autoload
 
 RUN chown -R www-data:www-data /var/www/html/public
 
