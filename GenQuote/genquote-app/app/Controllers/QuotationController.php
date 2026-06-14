@@ -19,55 +19,56 @@ class QuotationController {
         include __DIR__ . '/../Views/quotations/create.php';
     }
 
-    public function store() {
-        $customer_id = !empty($_POST['customer_id']) ? (int)$_POST['customer_id'] : null;
-        $date = $_POST['date'];
-        $quotation_number = $_POST['quotation_number'];
-        $our_contact = $_POST['our_contact'];
-        $our_contact_phone = $_POST['our_contact_phone'];
-        $re_description = $_POST['re_description'];
-        $validity = $_POST['validity'] ?? null;
-        $payment_terms = $_POST['payment_terms'] ?? null;
-        $warranty = $_POST['warranty'] ?? null;
-        $vat_included = isset($_POST['vat_included']) ? true : false;
+  public function store() {
+    $customer_id = !empty($_POST['customer_id']) ? (int)$_POST['customer_id'] : null;
+    $date = $_POST['date'];
+    $quotation_number = $_POST['quotation_number'];
+    $our_contact = $_POST['our_contact'];
+    $our_contact_phone = $_POST['our_contact_phone'];
+    $re_description = $_POST['re_description'];
+    $validity = $_POST['validity'] ?? null;
+    $payment_terms = $_POST['payment_terms'] ?? null;
+    $warranty = $_POST['warranty'] ?? null;
+    // FIX: use integer 1/0 instead of true/false to avoid empty string issues
+    $vat_included = isset($_POST['vat_included']) ? 1 : 0;
 
-        $generator_groups = $_POST['generator_group'];
-        $descriptions = $_POST['item_description'];
-        $quantities = $_POST['item_quantity'];
-        $units = $_POST['item_unit'];
-        $prices = $_POST['item_unit_price'];
+    $generator_groups = $_POST['generator_group'];
+    $descriptions = $_POST['item_description'];
+    $quantities = $_POST['item_quantity'];
+    $units = $_POST['item_unit'];
+    $prices = $_POST['item_unit_price'];
 
-        $subtotal = 0;
-        $items = [];
-        foreach ($descriptions as $i => $desc) {
-            if (empty($desc)) continue;
-            $qty = (float)$quantities[$i];
-            $price = (float)$prices[$i];
-            $total = $qty * $price;
-            $subtotal += $total;
-            $items[] = [
-                'generator_group' => $generator_groups[$i],
-                'description' => $desc,
-                'quantity' => $qty,
-                'unit' => $units[$i],
-                'unit_price' => $price,
-                'total' => $total
-            ];
-        }
-        $vat_amount = $vat_included ? $subtotal * 0.16 : 0;
-        $total = $subtotal + $vat_amount;
-
-        $stmt = $this->pdo->prepare("INSERT INTO quotations (quotation_number, customer_id, date, our_contact, our_contact_phone, re_description, validity, payment_terms, warranty, subtotal, vat_amount, vat_included, total, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$quotation_number, $customer_id, $date, $our_contact, $our_contact_phone, $re_description, $validity, $payment_terms, $warranty, $subtotal, $vat_amount, $vat_included, $total, $_SESSION['user_id']]);
-        $quotation_id = $this->pdo->lastInsertId();
-
-        $stmt = $this->pdo->prepare("INSERT INTO quotation_items (quotation_id, generator_group, description, quantity, unit, unit_price, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        foreach ($items as $item) {
-            $stmt->execute([$quotation_id, $item['generator_group'], $item['description'], $item['quantity'], $item['unit'], $item['unit_price'], $item['total']]);
-        }
-
-        header("Location: /quotations/generate-pdf?id=$quotation_id");
+    $subtotal = 0;
+    $items = [];
+    foreach ($descriptions as $i => $desc) {
+        if (empty($desc)) continue;
+        $qty = (float)$quantities[$i];
+        $price = (float)$prices[$i];
+        $total = $qty * $price;
+        $subtotal += $total;
+        $items[] = [
+            'generator_group' => $generator_groups[$i],
+            'description' => $desc,
+            'quantity' => $qty,
+            'unit' => $units[$i],
+            'unit_price' => $price,
+            'total' => $total
+        ];
     }
+    $vat_amount = $vat_included ? $subtotal * 0.16 : 0;
+    $total = $subtotal + $vat_amount;
+
+    $stmt = $this->pdo->prepare("INSERT INTO quotations (quotation_number, customer_id, date, our_contact, our_contact_phone, re_description, validity, payment_terms, warranty, subtotal, vat_amount, vat_included, total, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$quotation_number, $customer_id, $date, $our_contact, $our_contact_phone, $re_description, $validity, $payment_terms, $warranty, $subtotal, $vat_amount, $vat_included, $total, $_SESSION['user_id']]);
+    $quotation_id = $this->pdo->lastInsertId();
+
+    $stmt = $this->pdo->prepare("INSERT INTO quotation_items (quotation_id, generator_group, description, quantity, unit, unit_price, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    foreach ($items as $item) {
+        $stmt->execute([$quotation_id, $item['generator_group'], $item['description'], $item['quantity'], $item['unit'], $item['unit_price'], $item['total']]);
+    }
+
+    header("Location: /quotations/generate-pdf?id=$quotation_id");
+}
 
     public function generatePDF() {
         $id = $_GET['id'];
