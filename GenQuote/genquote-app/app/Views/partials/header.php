@@ -10,9 +10,12 @@
 </head>
 <body<?php if (isset($body_class)) echo ' class="' . $body_class . '"'; ?>>
 <nav>
-    <a href="/dashboard"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a href="/quotations/create"><i class="fas fa-file-invoice"></i> New Quotation</a>
-    <a href="/customers"><i class="fas fa-users"></i> Customers</a>
-    <a href="/logout" style="margin-left: auto;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="/dashboard"><i class="fas fa-chart-line"></i> Dashboard</a>
+      <a href="/quotations/create"><i class="fas fa-file-invoice"></i> New Quotation</a>
+      <a href="/customers"><i class="fas fa-users"></i> Customers</a>
+      <a href="/logout" style="margin-left: auto;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
 </nav>
 <div class="container">
